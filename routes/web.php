@@ -26,7 +26,7 @@ Route::get('/login', [AuthController::class, 'ShowLogin'])->middleware('guest')-
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::get('/employee/filtrer', [EmployeeController::class, 'Filtrer'])->name('employee.Filtrer');
-// Route::get('/employee/{id}/statut', [EmployeeController::class, 'changeStatut'])->name('employee.changeStatut');
+
 Route::get('/employee/{id}/statut', [EmployeeController::class, 'changeStatut'])->name('employee.changeStatut');
 
 Route::resource('/employee',EmployeeController::class );

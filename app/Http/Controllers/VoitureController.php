@@ -65,6 +65,6 @@ class VoitureController extends Controller
     {
         $voiture = Voiture::findOrFail($matricule);
         $voiture->delete();
-        return redirec
+        return ;
     }
 }
