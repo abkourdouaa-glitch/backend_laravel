@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Association;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\Auth;
 class AssociationController extends Controller
 {
     /**
@@ -52,11 +52,32 @@ class AssociationController extends Controller
             'recepisse' => $filePath, 
             'role' => 'association',
         ]);
+        Auth::login($association);
 
         return response()->json([
             'message' => 'Association créée avec succès !',
             'user' => $association
         ], 201);
+    }
+
+
+    public function getData()
+    {
+        $association = Auth::user();
+        if (!$association) {
+            return response()->json(['message' => 'Non authentifié'], 401);
+        }
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'nom' => $association->nom,
+                'email' => $association->email,
+                'ville' => $association->ville,
+                'description' => $association->description,
+                'recepisse' => $association->recepisse,
+                'role' =>$association->role,
+            ]
+        ]);
     }
 
     /**

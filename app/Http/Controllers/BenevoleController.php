@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth; 
 use App\Models\Benevole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -36,7 +36,6 @@ class BenevoleController extends Controller
                 'ville' => 'required',
                 'date_naissance' => 'required|date',
             ]);
-// $benevole = \App\Models\Benevole::create
             $benevole = \App\Models\Benevole::create([
                 'nom' => $request->nom,
                 'email' => $request->email,
@@ -46,11 +45,31 @@ class BenevoleController extends Controller
                 'role' => 'benevole', 
             ]);
 
+            Auth::login($benevole);
+
             return response()->json([
                 'message' => 'Bénévole créé avec succès !',
                 'user' => $benevole
             ], 201);
         }
+
+    public function getData()
+    {
+        $benevole = Auth::user();
+        if (!$benevole) {
+            return response()->json(['message' => 'Non authentifié'], 401);
+        }
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'nom' => $benevole->nom,
+                'email' => $benevole->email,
+                'ville' => $benevole->ville,
+                'date_naissance' => $benevole->date_naissance,
+                'role' =>$benevole->role,
+            ]
+        ]);
+    }
 
     /**
      * Display the specified resource.

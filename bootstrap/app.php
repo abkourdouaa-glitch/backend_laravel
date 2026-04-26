@@ -12,7 +12,24 @@ return Application::configure(basePath: dirname(__DIR__))
         api: __DIR__.'/../routes/api.php', 
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+    //     $middleware->alias([
+    //     'check.age' => \App\Http\Middleware\CheckAge::class,
+    // ]);
+
+
+        // $middleware->statefulApi();
+        // $middleware->alias([
+        //     'role' => \App\Http\Middleware\CheckRole::class,
+        // ]);
+
+
+        $middleware->validateCsrfTokens(except: [
+        'api/inscription-association', // <--- Zidi hada ghir bach n-t-7eqqo
+    ]);
+        $middleware->validateCsrfTokens(except: [
+        'api/dashboard-benevole', // <--- Zidi hada ghir bach n-t-7eqqo
+    ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

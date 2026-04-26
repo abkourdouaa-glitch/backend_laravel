@@ -24,7 +24,7 @@ class User extends Authenticatable
         'role'
     ];
 
-    function demande(){
+    function demandes(){
         return $this->hasMany(Demande::class);
     }
 
