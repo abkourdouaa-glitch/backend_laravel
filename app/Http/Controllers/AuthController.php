@@ -18,6 +18,12 @@ class AuthController extends Controller
             return response(['message' => 'Identifiants incorrects'], 401);
         }
 
+        if ($user->is_admin !== 1) {
+        return response([
+            'message' => 'Accès refusé : vous n\'êtes pas administrateur'
+        ], 403);
+    }
+
         $token = $user->createToken('mon_token_secret')->plainTextToken;
 
         return response([

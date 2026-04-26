@@ -10,32 +10,21 @@ use App\Http\Controllers\AuthController;
 
 
 
+// Routes publiques (Tout le monde peut voir)
+Route::get('/actualites', [ActualiteController::class, 'index']);
+Route::get('/actualites/{id}', [ActualiteController::class, 'show']);
 
-Route::post('/login', [AuthController::class, 'login']);
-//  Sanctum
-Route::middleware('auth:sanctum')->group(function () {
+// Routes protégées (Connexion + Admin)
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::post('/actualites', [ActualiteController::class, 'store']);
+    Route::post('/actualites/{id}', [ActualiteController::class, 'update']);
+    Route::put('/actualites/{id}', [ActualiteController::class, 'update']);
+    Route::delete('/actualites/{id}', [ActualiteController::class, 'destroy']);
+
     Route::post('/logout', [AuthController::class, 'logout']);
-
-    Route::post('/actualites', function() {
-        return "Actualité enregistrée !";
-    });
 });
 
-
-
-
-
-
-
-
-Route::get('/actualites', [ActualiteController::class, 'index']);
-Route::post('/actualites', [ActualiteController::class, 'store']);
-Route::get('/actualites/{id}', [ActualiteController::class, 'show']);
-Route::post('/actualites/{id}', [ActualiteController::class, 'update']);
-Route::put('/actualites/{id}', [ActualiteController::class, 'update']);
-
-Route::delete('/actualites/{id}', [ActualiteController::class, 'destroy']);
-
-
+// Inscriptions (Public)
 Route::post('/inscription-benevole', [BenevoleController::class, 'store']);
 Route::post('/inscription-association', [AssociationController::class, 'store']);
+Route::post('/login', [AuthController::class, 'login']);
