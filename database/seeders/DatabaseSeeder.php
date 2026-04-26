@@ -6,6 +6,9 @@ use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use Illuminate\Support\Facades\Hash;
+
+
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
@@ -15,17 +18,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            // FilmsTableSeeder::class,
-            // ActeursTableSeeder::class,
-            // ParticipationsTableSeeder::class,
-            //StagiaireSeeder::class,
-            AnnonceSeeder::class
-        ]);
+        // $this->call([
+        //     // FilmsTableSeeder::class,
+        //     // ActeursTableSeeder::class,
+        //     // ParticipationsTableSeeder::class,
+        //     //StagiaireSeeder::class,
+        //     AnnonceSeeder::class
+        // ]);
 
-        User::factory()->create([
+         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+      
     }
 }
