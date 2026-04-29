@@ -21,9 +21,15 @@ class User extends Authenticatable
       protected $fillable = ['name', 'email', 'password', 'is_admin'];
 
 
+    function demandes(){
+        return $this->hasMany(Demande::class);
+    }
+
+
     // function demande(){
     //     return $this->hasMany(Demande::class);
     // }
+
 
     /**
      * The attributes that should be hidden for serialization.

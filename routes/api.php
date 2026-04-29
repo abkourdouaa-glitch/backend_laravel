@@ -19,9 +19,20 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::put('/actualites/{id}', [ActualiteController::class, 'update']);
     Route::delete('/actualites/{id}', [ActualiteController::class, 'destroy']);
 
+
+Route::post('/inscription-benevole', [BenevoleController::class, 'store']);
+Route::post('/inscription-association', [AssociationController::class, 'store']); 
+Route::middleware(['auth:sanctum', 'role:association'])->group(function () {
+    Route::get('/dashboard-association', [AssociationController::class, 'getData']); 
+});
+Route::middleware(['auth:sanctum', 'role:benevole'])->group(function () {
+    Route::get('/dashboard-benevole', [AssociationController::class, 'getData']); 
+});
+
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
 Route::post('/inscription-benevole', [BenevoleController::class, 'store']);
 Route::post('/inscription-association', [AssociationController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login']);
+
