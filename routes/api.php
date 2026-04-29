@@ -10,11 +10,9 @@ use App\Http\Controllers\AuthController;
 
 
 
-// Routes publiques (Tout le monde peut voir)
 Route::get('/actualites', [ActualiteController::class, 'index']);
 Route::get('/actualites/{id}', [ActualiteController::class, 'show']);
 
-// Routes protégées (Connexion + Admin)
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/actualites', [ActualiteController::class, 'store']);
     Route::post('/actualites/{id}', [ActualiteController::class, 'update']);
@@ -24,7 +22,6 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-// Inscriptions (Public)
 Route::post('/inscription-benevole', [BenevoleController::class, 'store']);
 Route::post('/inscription-association', [AssociationController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login']);
